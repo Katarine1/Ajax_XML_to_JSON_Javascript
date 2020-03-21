@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ajax and XML</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="js/xmltojson.js"></script>
+		<script>
+			
+			function getEmployee() {
+
+				let ajax = new XMLHttpRequest();
+
+				ajax.open('GET', 'http://localhost/requisicao_ajax_xml_js/file.xml');
+
+				ajax.send();
+
+				ajax.onreadystatechange = function() {
+								
+					if(ajax.readyState == 4 && ajax.status == 200) {
+									
+						let XMLEmployee = ajax.responseText;
+						//console.log(XMLEmployee);
+						
+						//Convert XML to Json
+
+						let parser = new DOMParser();
+
+						let domEmployee = parser.parseFromString(XMLEmployee, 'text/xml');
+						
+						//console.log(domEmployee);	
+
+						let jsonEmployee = xmlToJson(domEmployee);	
+
+						//console.log(jsonEmployee);	
+
+						/*
+						<section id="description">
+							<h3>Name: </h3>
+							<h4>Age: </h4>
+							<h4>Salary: </h4>
+							<h4>Office: </h4>
+						</section>
+						*/
+						
+						for(let i in jsonEmployee['employees']['employee']) {
+
+							let item = jsonEmployee['employees']['employee'][i];
+
+							console.log(jsonEmployee['employees']['employee'][i]);
+
+							// Create Elements
+							let sectionDescription = document.createElement('section');
+							sectionDescription.id = 'description';
+
+							let h3 = document.createElement('h3');
+							h3.innerHTML = "Employee:";
+							h3.style.padding = "20px";
+
+							let p1 = document.createElement('p');
+							p1.innerHTML = "<strong>Name: </strong>" + item['name']['#text'];
+							p1.style.padding = "20px 40px";
+							
+							let p2 = document.createElement('p');
+							p2.innerHTML = "<strong>Age: </strong>" + item['age']['#text'];
+							p2.style.padding = "20px 40px";
+
+							let p3 = document.createElement('p');
+							p3.innerHTML = "<strong>Salary: </strong>" + item['salary']['#text'];
+							p3.style.padding = "20px 40px";
+
+							let p4 = document.createElement('p');
+							p4.innerHTML = "<strong>Office: </strong>" + item['office']['#text'];
+							p4.style.padding = "20px 40px";
+
+							let hr = document.createElement('hr');
+
+							sectionDescription.appendChild(h3);
+							sectionDescription.appendChild(p1);
+							sectionDescription.appendChild(p2);
+							sectionDescription.appendChild(p3);
+							sectionDescription.appendChild(p4);
+							sectionDescription.appendChild(hr);
+
+							document.getElementById('contents').appendChild(sectionDescription);
+						}
+						
+					}
+
+					if(ajax.readyState == 4 && ajax.status == 404) {
+									
+						//document.getElementById('contents').innerHTML='Error';
+
+					}
+				}
+			}
+
+		</script>
+		
+	</head>
+	<body>
+		<header id="header">
+			<h2>Ajax and XML</h2>
+			<button onclick="getEmployee();">List XML</button>
+		</header>
+		<section id="content">
+			<section id="contents">
+				
+			</section>					
+		</section>
+	</body>
+</html>

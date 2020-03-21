@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<employees>
+
+	<employee id="1">
+		<name>John Philip</name>
+		<age>18</age>
+		<salary>1.200.00</salary>
+		<office>Administrative Assistant</office>
+	</employee>
+
+	<employee id="2">
+		<name>Maria Anna</name>
+		<age>23</age>
+		<salary>2.340.00</salary>
+		<office>IT auxiliary</office>
+	</employee>
+
+	<employee id="3">
+		<name>Fátima Silva</name>
+		<age>37</age>
+		<salary>1.250.00</salary>
+		<office>Office Assistant</office>
+	</employee>
+
+	<employee id="4">
+		<name>Alex Souza</name>
+		<age>21</age>
+		<salary>1.550.00</salary>
+		<office>Telemarketing attendant</office>
+	</employee>
+
+</employees>
